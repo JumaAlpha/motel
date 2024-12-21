@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grand Five Hotel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom slider animation */
+        /* Keyframes for the slider animation */
+        @keyframes slider {
+            0% {
+                background-image: url('https://source.unsplash.com/1600x900/?hotel,view');
+            }
+
+            33% {
+                background-image: url('https://source.unsplash.com/1600x900/?hotel,room');
+            }
+
+            66% {
+                background-image: url('https://source.unsplash.com/1600x900/?hotel,pool');
+            }
+
+            100% {
+                background-image: url('https://source.unsplash.com/1600x900/?hotel,view');
+            }
+        }
+
+        /* Dark mode body transition */
+        body {
+            font-family: Arial, sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Light mode default */
+        .light-mode {
+            background-color: #ffffff;
+            color: black;
+        }
+
+        /* Dark mode */
+        .dark-mode {
+            background-color: #1a202c;
+            color: white;
+        }
+
+        /* Hide radio buttons */
+        input[type="radio"] {
+            display: none;
+        }
+
+        /* Styling the container for the toggle button */
+        .toggle-container {
+            position: fixed;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            z-index: 50;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Label styles for the radio button (toggle) */
+        label {
+            font-size: 30px;
+            padding: 10px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            /* Light background */
+            border-radius: 50%;
+            color: white;
+            text-align: center;
+            line-height: 30px;
+            width: 50px;
+            height: 50px;
+        }
+
+        /* Dark mode toggle button style */
+        input[type="radio"]:checked+label {
+            background-color: #2d3748;
+            /* Dark mode background */
+        }
+
+        /* Continuous Scrolling Animation */
+        @keyframes galleryScroll {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        /* Apply the animation to the gallery */
+        .animate-gallery {
+            animation: galleryScroll 30s linear infinite;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 transition duration-300" id="body">
+    <div class="toggle-container">
+        <!-- Light Mode Radio Button -->
+        <input type="radio" id="light" name="theme" checked>
+        <label for="light" onclick="toggleTheme('light')">☀️</label>
+
+        <!-- Dark Mode Radio Button -->
+        <input type="radio" id="dark" name="theme">
+        <label for="dark" onclick="toggleTheme('dark')">🌙</label>
+    </div>
+    <script>
+        // JavaScript function to toggle the theme
+        function toggleTheme(mode) {
+            const body = document.getElementById('body');
+            const lightRadio = document.getElementById('light');
+            const darkRadio = document.getElementById('dark');
+
+            if (mode === 'light') {
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+                lightRadio.checked = true;
+                darkRadio.checked = false;
+            } else if (mode === 'dark') {
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+                lightRadio.checked = false;
+                darkRadio.checked = true;
+            }
+        }
+
+    </script>
+
+    <!-- Navbar -->
+    <header
+        class="bg-white bg-opacity-90 dark:bg-gray-900 dark:bg-opacity-80 shadow sticky top-0 z-50 transition-all duration-300">
+        <div class="container mx-auto flex justify-between items-center px-4 py-4">
+            <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Grand Five Hotel</h1>
+            <button id="menu-button" class="md:hidden text-gray-800 dark:text-white focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+            <nav id="menu"
+                class="hidden md:flex flex-col md:flex-row md:items-center md:space-x-6 absolute md:static top-16 left-0 w-full md:w-auto bg-white dark:bg-gray-900 md:bg-transparent p-4 md:p-0 shadow-md md:shadow-none">
+                <a href="#rooms"
+                    class="block text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition">Rooms</a>
+                <a href="#services"
+                    class="block text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition">Services</a>
+                <a href="#gallery"
+                    class="block text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition">Gallery</a>
+                <a href="#contact"
+                    class="block text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition">Contact</a>
+                <a href="#book"
+                    class="block md:inline bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 transition">
+                    Book Now
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section with Slider -->
+    <section class="relative h-screen bg-cover bg-center text-white">
+        <!-- Background Video -->
+        <video id="background-video" autoplay muted loop class="absolute inset-0 w-full h-full object-cover">
+            <source src="hotel-cinematic-boutique-hotel-port-elizabeth-1440-publer (online-video-cutter.com).mp4"
+                type="video/mp4" />
+            Your browser does not support the video tag.
+        </video>
+
+        <!-- Content on Top of the Video -->
+        <div class="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center">
+            <h2 class="text-4xl md:text-5xl font-bold">Welcome to Grand Five Hotel</h2>
+            <p class="mt-4 text-lg">Experience luxury and comfort like never before.</p>
+            <a href="#book" class="mt-6 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700">Book Your
+                Stay</a>
+        </div>
+
+        <!-- Play/Pause Button with Icon -->
+        <button id="play-pause-btn"
+            class="absolute bottom-4 right-4 bg-transparent text-white p-4 rounded-full hover:bg-opacity-75 focus:outline-none z-50">
+            <svg id="play-icon" class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M14.752 11.168l-6.397 3.6a1 1 0 01-1.505-.832V9.064a1 1 0 011.505-.832l6.397 3.6a1 1 0 010 1.664z" />
+            </svg>
+            <svg id="pause-icon" class="hidden w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19V5m4 14V5" />
+            </svg>
+        </button>
+    </section>
+
+    <!-- Add JavaScript for Play/Pause functionality -->
+    <script>
+        const video = document.getElementById('background-video');
+        const playPauseBtn = document.getElementById('play-pause-btn');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+
+        playPauseBtn.addEventListener('click', () => {
+            if (video.paused) {
+                video.play();
+                playIcon.classList.add('hidden');
+                pauseIcon.classList.remove('hidden');
+            } else {
+                video.pause();
+                playIcon.classList.remove('hidden');
+                pauseIcon.classList.add('hidden');
+            }
+        });
+    </script>
+
+    <!-- Features Section -->
+    <section id="services" class="py-16 bg-gray-100 dark:bg-gray-800">
+        <div class="container mx-auto text-center">
+            <h3 class="text-4xl font-semibold mb-8 text-gray-800 dark:text-white">Our Premium Services</h3>
+            <p class="text-lg text-gray-600 dark:text-gray-300 mb-12">
+                Experience luxury like never before with our range of exclusive services.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                <!-- Relaxing Spa -->
+                <div class="bg-cover bg-center h-64 p-6 shadow-lg rounded-lg relative group hover:scale-105 transition-transform duration-300"
+                    style="background-image: url('assets/spa.jpg');">
+                    <div
+                        class="absolute inset-0 bg-black opacity-40 rounded-lg group-hover:opacity-60 transition-opacity">
+                    </div>
+                    <h4 class="text-xl font-semibold text-white z-10 relative">Relaxing Spa</h4>
+                    <p class="text-lg text-gray-200 z-10 relative">Rejuvenate with our world-class spa treatments.</p>
+                </div>
+
+                <!-- Fine Dining -->
+                <div class="bg-cover bg-center h-64 p-6 shadow-lg rounded-lg relative group hover:scale-105 transition-transform duration-300"
+                    style="background-image: url('assets/dining.jpg');">
+                    <div
+                        class="absolute inset-0 bg-black opacity-40 rounded-lg group-hover:opacity-60 transition-opacity">
+                    </div>
+                    <h4 class="text-xl font-semibold text-white z-10 relative">Fine Dining</h4>
+                    <p class="text-lg text-gray-200 z-10 relative">Savor exquisite cuisines crafted by top chefs.</p>
+                </div>
+
+                <!-- Infinity Pool -->
+                <div class="bg-cover bg-center h-64 p-6 shadow-lg rounded-lg relative group hover:scale-105 transition-transform duration-300"
+                    style="background-image: url('assets/pool.jpg');">
+                    <div
+                        class="absolute inset-0 bg-black opacity-40 rounded-lg group-hover:opacity-60 transition-opacity">
+                    </div>
+                    <h4 class="text-xl font-semibold text-white z-10 relative">Infinity Pool</h4>
+                    <p class="text-lg text-gray-200 z-10 relative">Enjoy stunning views from our infinity pool.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section with Moving Images -->
+    <section id="gallery" class="py-16 bg-gray-100 dark:bg-gray-800 overflow-hidden">
+        <div class="container mx-auto">
+            <h3 class="text-3xl font-semibold text-center text-gray-800 dark:text-white mb-8">
+                Our Gallery
+            </h3>
+            <p class="text-center text-gray-600 dark:text-gray-300 mb-12">
+                Explore the beauty and luxury of Grand Five Hotel.
+            </p>
+            <!-- Scrolling Wrapper -->
+            <div class="relative overflow-hidden">
+                <div class="flex space-x-6 animate-gallery">
+                    <!-- Gallery Item 1 -->
+                    <div
+                        class="w-80 flex-shrink-0 overflow-hidden rounded-lg transition-transform duration-300 transform hover:scale-105 hover:shadow-xl">
+                        <img src="assets/image_a.jpg" alt="Luxury Room" class="w-full h-full object-cover" />
+                    </div>
+                    <!-- Gallery Item 2 -->
+                    <div
+                        class="w-80 flex-shrink-0 overflow-hidden rounded-lg transition-transform duration-300 transform hover:scale-105 hover:shadow-xl">
+                        <img src="assets/image_b.jpg" alt="Swimming Pool" class="w-full h-full object-cover" />
+                    </div>
+                    <!-- Gallery Item 3 -->
+                    <div
+                        class="w-80 flex-shrink-0 overflow-hidden rounded-lg transition-transform duration-300 transform hover:scale-105 hover:shadow-xl">
+                        <img src="assets/image_c.jpg" alt="Fine Dining" class="w-full h-full object-cover" />
+                    </div>
+                    <!-- Gallery Item 4 -->
+                    <div
+                        class="w-80 flex-shrink-0 overflow-hidden rounded-lg transition-transform duration-300 transform hover:scale-105 hover:shadow-xl">
+                        <img src="assets/image_d.jpg" alt="Lobby Area" class="w-full h-full object-cover" />
+                    </div>
+                    <!-- Gallery Item 5 -->
+                    <div
+                        class="w-80 flex-shrink-0 overflow-hidden rounded-lg transition-transform duration-300 transform hover:scale-105 hover:shadow-xl">
+                        <img src="assets/image_e.jpg" alt="Luxury Spa" class="w-full h-full object-cover" />
+                    </div>
+                    <!-- Gallery Item 6 -->
+                    <div
+                        class="w-80 flex-shrink-0 overflow-hidden rounded-lg transition-transform duration-300 transform hover:scale-105 hover:shadow-xl">
+                        <img src="assets/image_f.jpg" alt="Scenic View" class="w-full h-full object-cover" />
+                    </div>
+                    <!-- Duplicate Gallery Items for Continuous Loop -->
+                    <div
+                        class="w-80 flex-shrink-0 overflow-hidden rounded-lg transition-transform duration-300 transform hover:scale-105 hover:shadow-xl">
+                        <img src="assets/image_a.jpg" alt="Luxury Room" class="w-full h-full object-cover" />
+                    </div>
+                    <div
+                        class="w-80 flex-shrink-0 overflow-hidden rounded-lg transition-transform duration-300 transform hover:scale-105 hover:shadow-xl">
+                        <img src="assets/image_b.jpg" alt="Swimming Pool" class="w-full h-full object-cover" />
+                    </div>
+                    <div
+                        class="w-80 flex-shrink-0 overflow-hidden rounded-lg transition-transform duration-300 transform hover:scale-105 hover:shadow-xl">
+                        <img src="assets/image_c.jpg" alt="Fine Dining" class="w-full h-full object-cover" />
+                    </div>
+                    <div
+                        class="w-80 flex-shrink-0 overflow-hidden rounded-lg transition-transform duration-300 transform hover:scale-105 hover:shadow-xl">
+                        <img src="assets/image_d.jpg" alt="Lobby Area" class="w-full h-full object-cover" />
+                    </div>
+                    <div
+                        class="w-80 flex-shrink-0 overflow-hidden rounded-lg transition-transform duration-300 transform hover:scale-105 hover:shadow-xl">
+                        <img src="assets/image_e.jpg" alt="Luxury Spa" class="w-full h-full object-cover" />
+                    </div>
+                    <div
+                        class="w-80 flex-shrink-0 overflow-hidden rounded-lg transition-transform duration-300 transform hover:scale-105 hover:shadow-xl">
+                        <img src="assets/image_f.jpg" alt="Scenic View" class="w-full h-full object-cover" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- testimonials -->
+    <section id="testimonials" class="py-16 bg-gray-100 dark:bg-gray-800">
+        <div class="container mx-auto text-center">
+            <h3 class="text-3xl font-semibold mb-8 text-gray-800 dark:text-white">What Our Guests Say</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                <div class="bg-white dark:bg-gray-900 p-6 shadow rounded-lg">
+                    <p class="text-gray-600 dark:text-gray-300">"Amazing experience! The rooms were spacious, and the
+                        staff was very friendly. Highly recommend."</p>
+                    <h4 class="text-xl font-semibold text-gray-700 dark:text-white mt-4">John Doe</h4>
+                    <div class="text-yellow-500">
+                        <!-- Star Rating -->
+                        &#9733;&#9733;&#9733;&#9733;&#9734;
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-gray-900 p-6 shadow rounded-lg">
+                    <p class="text-gray-600 dark:text-gray-300">"A luxury getaway! The food was fantastic, and the views
+                        were breathtaking. Will definitely return."</p>
+                    <h4 class="text-xl font-semibold text-gray-700 dark:text-white mt-4">Jane Smith</h4>
+                    <div class="text-yellow-500">
+                        &#9733;&#9733;&#9733;&#9733;&#9733;
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-gray-900 p-6 shadow rounded-lg">
+                    <p class="text-gray-600 dark:text-gray-300">"A luxury getaway! The food was fantastic, and the views
+                        were breathtaking. Will definitely return."</p>
+                    <h4 class="text-xl font-semibold text-gray-700 dark:text-white mt-4">Jane Smith</h4>
+                    <div class="text-yellow-500">
+                        &#9733;&#9733;&#9733;&#9733;&#9733;
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section id="book" class="bg-blue-600 text-white py-12">
+        <div class="container mx-auto text-center">
+            <h3 class="text-3xl font-semibold mb-4">Ready to Book Your Stay?</h3>
+            <p class="mb-6">Experience luxury like never before at Grand Five Hotel.</p>
+            <a href="booking.html" class="bg-white text-blue-600 px-6 py-3 rounded-lg hover:bg-gray-100">Book Now</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-400 py-6">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2024 Grand Five Hotel. All rights reserved.</p>
+            <nav class="flex justify-center space-x-6 mt-4">
+                <a href="#privacy" class="hover:text-white">Privacy Policy</a>
+                <a href="#terms" class="hover:text-white">Terms of Service</a>
+            </nav>
+        </div>
+    </footer>
+
+
+
+</body>
+
+</html>

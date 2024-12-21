@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Mode Toggle</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Global body styles */
+        body {
+            font-family: Arial, sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Light mode default */
+        .light-mode {
+            background-color: #ffffff;
+            color: black;
+        }
+
+        /* Dark mode */
+        .dark-mode {
+            background-color: #1a202c;
+            color: white;
+        }
+
+        /* Hide radio buttons */
+        input[type="radio"] {
+            display: none;
+        }
+
+        /* Styling the container for the toggle button */
+        .toggle-container {
+            position: fixed;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            z-index: 50;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Label styles for the radio button (toggle) */
+        label {
+            font-size: 30px;
+            padding: 10px;
+            cursor: pointer;
+            background-color: #4CAF50; /* Light background */
+            border-radius: 50%;
+            color: white;
+            text-align: center;
+            line-height: 30px;
+            width: 50px;
+            height: 50px;
+        }
+
+        /* Dark mode toggle button style */
+        input[type="radio"]:checked + label {
+            background-color: #2d3748; /* Dark mode background */
+        }
+    </style>
+</head>
+<body class="light-mode">
+
+    <!-- Dark Mode / Light Mode Radio Button Toggle -->
+    <div class="toggle-container">
+        <!-- Light Mode Radio Button -->
+        <input type="radio" id="light" name="theme" checked>
+        <label for="light" onclick="toggleTheme('light')">☀️</label>
+
+        <!-- Dark Mode Radio Button -->
+        <input type="radio" id="dark" name="theme">
+        <label for="dark" onclick="toggleTheme('dark')">🌙</label>
+    </div>
+
+    <div class="p-8">
+        <h1 class="text-4xl font-bold">Welcome to the Dark Mode Toggle Page</h1>
+        <p class="mt-4 text-xl">This page demonstrates light and dark mode toggling using radio buttons and JavaScript.</p>
+    </div>
+
+    <script>
+        // JavaScript function to toggle the theme
+        function toggleTheme(theme) {
+            if (theme === 'light') {
+                document.body.classList.remove('dark-mode');
+                document.body.classList.add('light-mode');
+            } else if (theme === 'dark') {
+                document.body.classList.remove('light-mode');
+                document.body.classList.add('dark-mode');
+            }
+        }
+    </script>
+
+</body>
+</html>
